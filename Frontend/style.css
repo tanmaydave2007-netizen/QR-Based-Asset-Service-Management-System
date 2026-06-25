@@ -8,30 +8,30 @@
 body {
     min-height: 100vh;
     background:
-        linear-gradient(rgba(255, 255, 255, 0.65), rgba(255, 255, 255, 0.78)),
+        linear-gradient(rgba(255, 255, 255, 0.68), rgba(255, 255, 255, 0.82)),
         url("akshaya-bg.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
     color: #0f172a;
-    padding: 24px;
+    padding: 20px 26px;
 }
 
 .portal {
-    max-width: 1440px;
+    max-width: 1480px;
     margin: auto;
     display: grid;
     grid-template-columns: 1fr 370px;
-    gap: 22px;
+    gap: 20px;
 }
 
 .header {
     grid-column: 1 / -1;
-    background: rgba(255, 255, 255, 0.93);
-    border: 1px solid #d1d5db;
+    background: rgba(255, 255, 255, 0.94);
+    border: 1px solid #cfd8e3;
     border-radius: 18px;
-    padding: 18px 32px;
+    padding: 14px 24px;
     box-shadow: 0 18px 45px rgba(15, 23, 42, 0.12);
     display: flex;
     align-items: center;
@@ -41,31 +41,32 @@ body {
 .brand {
     display: flex;
     align-items: center;
-    gap: 22px;
+    gap: 24px;
     flex: 1;
 }
 
 .logo {
-    width: 170px;
-    height: 92px;
+    width: 160px;
+    height: 98px;
     object-fit: contain;
 }
 
 .header h1 {
-    font-size: 30px;
+    font-size: 34px;
     color: #075c28;
+    line-height: 1.1;
 }
 
 .header p {
-    margin-top: 10px;
-    color: #64748b;
-    font-size: 16px;
+    margin-top: 12px;
+    color: #52627a;
+    font-size: 18px;
 }
 
 .header-divider {
     width: 1px;
     height: 56px;
-    background: #d8dee8;
+    background: #d7dee9;
 }
 
 .welcome-text {
@@ -79,16 +80,15 @@ body {
 }
 
 .welcome-text svg {
-    width: 36px;
-    height: 36px;
-    stroke-width: 2;
+    width: 38px;
+    height: 38px;
 }
 
 .badge {
     background: #dcfce7;
     color: #075c28;
     padding: 14px 24px;
-    border-radius: 30px;
+    border-radius: 32px;
     font-weight: 700;
     white-space: nowrap;
     display: flex;
@@ -99,29 +99,29 @@ body {
 .card {
     background: rgba(255, 255, 255, 0.94);
     border-radius: 16px;
-    padding: 26px;
+    padding: 28px;
     box-shadow: 0 18px 45px rgba(15, 23, 42, 0.12);
 }
 
 .section-title {
-    margin-bottom: 24px;
-    font-size: 22px;
+    margin-bottom: 18px;
+    font-size: 24px;
     color: #0f172a;
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 16px;
 }
 
 .section-title svg {
-    width: 28px;
-    height: 28px;
+    width: 30px;
+    height: 30px;
     color: #078235;
 }
 
 .form-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 18px 20px;
+    gap: 18px 24px;
 }
 
 .form-group {
@@ -133,11 +133,23 @@ body {
     grid-column: 1 / -1;
 }
 
+.upload-group {
+    width: 52%;
+}
+
 label {
-    margin-bottom: 9px;
+    margin-bottom: 8px;
     font-weight: 700;
     color: #0f172a;
-    font-size: 14px;
+    font-size: 15px;
+}
+
+label span {
+    color: #ef4444;
+}
+
+label small {
+    font-weight: 400;
 }
 
 .field-control {
@@ -146,12 +158,13 @@ label {
 
 .field-control svg {
     position: absolute;
-    left: 14px;
+    left: 16px;
     top: 50%;
     transform: translateY(-50%);
-    width: 20px;
-    height: 20px;
+    width: 21px;
+    height: 21px;
     color: #078235;
+    z-index: 2;
 }
 
 .textarea-control svg {
@@ -163,17 +176,18 @@ select,
 textarea {
     width: 100%;
     border: 1px solid #cfd8e3;
-    padding: 14px 14px;
+    padding: 14px 16px;
     border-radius: 9px;
-    font-size: 15px;
+    font-size: 16px;
     outline: none;
     background: rgba(255, 255, 255, 0.82);
     transition: 0.2s;
 }
 
 .field-control input,
+.field-control select,
 .field-control textarea {
-    padding-left: 46px;
+    padding-left: 54px;
 }
 
 input:focus,
@@ -191,7 +205,7 @@ textarea {
 .priority-box {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
+    gap: 22px;
 }
 
 .priority-box input {
@@ -207,6 +221,7 @@ textarea {
     background: rgba(255, 255, 255, 0.8);
     transition: 0.2s;
     margin: 0;
+    font-size: 16px;
 }
 
 .priority-box input:checked+label {
@@ -215,31 +230,33 @@ textarea {
     color: #075c28;
 }
 
-.dot {
-    width: 11px;
-    height: 11px;
+.ring {
+    width: 18px;
+    height: 18px;
     border-radius: 50%;
     display: inline-block;
     margin-right: 18px;
+    vertical-align: middle;
+    background: #ffffff;
 }
 
 .green {
-    background: #16a34a;
+    border: 3px solid #16a34a;
 }
 
 .yellow {
-    background: #f59e0b;
+    border: 3px solid #f59e0b;
 }
 
 .red {
-    background: #ef4444;
+    border: 3px solid #ef4444;
 }
 
 .actions {
     display: grid;
-    grid-template-columns: 1fr 170px;
+    grid-template-columns: 1fr 200px;
     gap: 18px;
-    margin-top: 24px;
+    margin-top: 22px;
 }
 
 button {
@@ -248,12 +265,12 @@ button {
     border-radius: 9px;
     font-weight: 700;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 17px;
     transition: 0.2s;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 12px;
+    gap: 14px;
 }
 
 .submit-btn {
@@ -275,14 +292,15 @@ button {
 }
 
 .side-card {
-    margin-bottom: 22px;
+    margin-bottom: 20px;
 }
 
 .stat {
     display: flex;
     justify-content: space-between;
-    padding: 16px 0;
+    padding: 17px 0;
     border-top: 1px solid #e2e8f0;
+    font-size: 16px;
 }
 
 .stat strong {
@@ -292,11 +310,11 @@ button {
 
 .preview {
     border: 1px dashed #b7c5d8;
-    padding: 28px;
+    padding: 30px;
     border-radius: 12px;
     color: #64748b;
     background: rgba(248, 250, 252, 0.72);
-    min-height: 130px;
+    min-height: 145px;
     display: grid;
     place-items: center;
     text-align: center;
@@ -312,8 +330,8 @@ button {
 
 .empty-icon,
 .empty-state svg {
-    width: 42px;
-    height: 42px;
+    width: 46px;
+    height: 46px;
     color: #94a3b8;
     margin-bottom: 8px;
 }
@@ -321,7 +339,7 @@ button {
 .empty-state {
     text-align: center;
     color: #64748b;
-    padding: 22px 0;
+    padding: 28px 0;
 }
 
 .success {
@@ -367,6 +385,10 @@ button {
 }
 
 @media (max-width: 1000px) {
+    body {
+        padding: 16px;
+    }
+
     .portal {
         grid-template-columns: 1fr;
     }
@@ -376,19 +398,40 @@ button {
         align-items: flex-start;
     }
 
+    .brand {
+        align-items: flex-start;
+    }
+
     .header-divider {
         display: none;
+    }
+
+    .logo {
+        width: 130px;
+        height: auto;
+    }
+
+    .header h1 {
+        font-size: 26px;
+    }
+
+    .header p {
+        font-size: 15px;
     }
 
     .form-grid {
         grid-template-columns: 1fr;
     }
 
-    .actions {
+    .upload-group {
+        width: 100%;
+    }
+
+    .priority-box {
         grid-template-columns: 1fr;
     }
 
-    .logo {
-        width: 130px;
+    .actions {
+        grid-template-columns: 1fr;
     }
 }
