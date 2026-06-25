@@ -6,74 +6,109 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Akshaya Patra Complaint Portal</title>
     <link rel="stylesheet" href="style.css" />
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 
 <body>
     <main class="portal">
         <header class="header">
-            <div>
-                <h1>Akshaya Patra Complaint Portal</h1>
-                <p>Submit, track and manage employee complaints professionally.</p>
+            <div class="brand">
+                <img src="logo.png" alt="Akshaya Patra Logo" class="logo" />
+
+                <div>
+                    <h1>Akshaya Patra Complaint Portal</h1>
+                    <p>Submit, track and manage employee complaints professionally.</p>
+                </div>
             </div>
+
+            <div class="header-divider"></div>
 
             <div class="welcome-text">
-                Welcome to Akshaya Patra
+                <i data-lucide="circle-user-round"></i>
+                <span>Welcome to Akshaya Patra</span>
             </div>
 
-            <span class="badge">Online Helpdesk</span>
+            <div class="header-divider"></div>
+
+            <span class="badge">
+                <i data-lucide="headphones"></i>
+                Employee Support
+            </span>
         </header>
 
         <section class="card">
-            <h2 class="section-title">Raise New Complaint</h2>
+            <h2 class="section-title">
+                <i data-lucide="square-pen"></i>
+                Raise New Complaint
+            </h2>
 
             <form id="complaintForm">
                 <div class="form-grid">
                     <div class="form-group">
                         <label for="employeeName">Employee Name</label>
-                        <input type="text" id="employeeName" name="employeeName" placeholder="Enter employee name"
-                            required />
+                        <div class="field-control">
+                            <i data-lucide="user"></i>
+                            <input type="text" id="employeeName" name="employeeName" placeholder="Enter employee name"
+                                required />
+                        </div>
                     </div>
 
                     <div class="form-group">
                         <label for="employeeId">Employee ID</label>
-                        <input type="text" id="employeeId" name="employeeId" placeholder="Enter employee ID" required />
+                        <div class="field-control">
+                            <i data-lucide="id-card"></i>
+                            <input type="text" id="employeeId" name="employeeId" placeholder="Enter employee ID"
+                                required />
+                        </div>
                     </div>
 
                     <div class="form-group">
                         <label for="department">Department</label>
-                        <input type="text" id="department" name="department" placeholder="Enter department" required />
+                        <div class="field-control">
+                            <i data-lucide="building-2"></i>
+                            <input type="text" id="department" name="department" placeholder="Enter department"
+                                required />
+                        </div>
                     </div>
 
                     <div class="form-group">
                         <label for="category">Complaint Category</label>
                         <select id="category" name="category" required>
                             <option value="">Select category</option>
-                            <option value="Electrical">Electrical</option>
-                            <option value="AC">AC</option>
-                            <option value="Computer">Computer</option>
-                            <option value="Food">Food</option>
-                            <option value="Cleaning">Cleaning</option>
-                            <option value="Security">Security</option>
-                            <option value="Maintenance">Maintenance</option>
-                            <option value="Other">Other</option>
+                            <option>Electrical</option>
+                            <option>AC</option>
+                            <option>Computer</option>
+                            <option>Food</option>
+                            <option>Cleaning</option>
+                            <option>Security</option>
+                            <option>Maintenance</option>
                         </select>
                     </div>
 
                     <div class="form-group full">
                         <label for="title">Complaint Title</label>
-                        <input type="text" id="title" name="title" placeholder="Short complaint title" required />
+                        <div class="field-control">
+                            <i data-lucide="message-square-text"></i>
+                            <input type="text" id="title" name="title" placeholder="Short complaint title" required />
+                        </div>
                     </div>
 
                     <div class="form-group full">
                         <label for="description">Complaint Description</label>
-                        <textarea id="description" name="description" rows="5" placeholder="Write complaint details"
-                            required></textarea>
+                        <div class="field-control textarea-control">
+                            <i data-lucide="clipboard-list"></i>
+                            <textarea id="description" name="description" rows="5" placeholder="Write complaint details"
+                                required></textarea>
+                        </div>
                     </div>
 
                     <div class="form-group">
                         <label for="location">Location</label>
-                        <input type="text" id="location" name="location" placeholder="Office, floor or room number"
-                            required />
+                        <div class="field-control">
+                            <i data-lucide="map-pin"></i>
+                            <input type="text" id="location" name="location" placeholder="Office, floor or room number"
+                                required />
+                        </div>
                     </div>
 
                     <div class="form-group">
@@ -83,23 +118,29 @@
 
                     <div class="form-group full">
                         <label>Priority</label>
-
                         <div class="priority-box">
                             <input type="radio" id="low" name="priority" value="Low" required />
-                            <label for="low">Low</label>
+                            <label for="low"><span class="dot green"></span>Low</label>
 
                             <input type="radio" id="medium" name="priority" value="Medium" />
-                            <label for="medium">Medium</label>
+                            <label for="medium"><span class="dot yellow"></span>Medium</label>
 
                             <input type="radio" id="high" name="priority" value="High" />
-                            <label for="high">High</label>
+                            <label for="high"><span class="dot red"></span>High</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="actions">
-                    <button type="submit" class="submit-btn">Submit Complaint</button>
-                    <button type="reset" class="reset-btn">Clear</button>
+                    <button type="submit" class="submit-btn">
+                        <i data-lucide="send"></i>
+                        Submit Complaint
+                    </button>
+
+                    <button type="reset" class="reset-btn">
+                        <i data-lucide="rotate-ccw"></i>
+                        Clear
+                    </button>
                 </div>
 
                 <div class="success" id="successBox"></div>
@@ -108,7 +149,10 @@
 
         <aside>
             <div class="card side-card">
-                <h2 class="section-title">Complaint Summary</h2>
+                <h2 class="section-title">
+                    <i data-lucide="bar-chart-3"></i>
+                    Complaint Summary
+                </h2>
 
                 <div class="stat">
                     <span>Total Complaints</span>
@@ -127,22 +171,37 @@
             </div>
 
             <div class="card side-card">
-                <h2 class="section-title">Photo Preview</h2>
+                <h2 class="section-title">
+                    <i data-lucide="image"></i>
+                    Photo Preview
+                </h2>
 
                 <div class="preview">
                     <img id="photoPreview" alt="Complaint photo preview" />
+                    <i data-lucide="image" class="empty-icon"></i>
                     <span id="previewText">No photo selected</span>
                 </div>
             </div>
 
             <div class="card">
-                <h2 class="section-title">Recent Complaints</h2>
-                <div class="complaint-list" id="complaintList"></div>
+                <h2 class="section-title">
+                    <i data-lucide="clock"></i>
+                    Recent Complaints
+                </h2>
+
+                <div class="complaint-list" id="complaintList">
+                    <div class="empty-state">
+                        <i data-lucide="file"></i>
+                        <p>No recent complaints found.</p>
+                    </div>
+                </div>
             </div>
         </aside>
     </main>
 
     <script>
+        lucide.createIcons();
+
         const form = document.getElementById("complaintForm");
         const successBox = document.getElementById("successBox");
         const complaintList = document.getElementById("complaintList");
@@ -161,7 +220,6 @@
             if (!file) {
                 photoPreview.style.display = "none";
                 previewText.style.display = "block";
-                previewText.textContent = "No photo selected";
                 return;
             }
 
@@ -183,16 +241,11 @@
 
             const complaint = {
                 ticket: "AKP-" + Date.now().toString().slice(-6),
-                name: data.get("employeeName"),
-                employeeId: data.get("employeeId"),
-                department: data.get("department"),
-                category: data.get("category"),
                 title: data.get("title"),
-                description: data.get("description"),
+                category: data.get("category"),
                 location: data.get("location"),
                 priority: data.get("priority"),
-                status: "Pending",
-                date: new Date().toLocaleDateString()
+                status: "Pending"
             };
 
             complaints.unshift(complaint);
@@ -204,7 +257,6 @@
             form.reset();
             photoPreview.style.display = "none";
             previewText.style.display = "block";
-            previewText.textContent = "No photo selected";
         });
 
         function updateDashboard() {
