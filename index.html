@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Akshaya Patra Complaint Portal</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <main class="portal">
+        <header class="header">
+            <div>
+                <h1>Akshaya Patra Complaint Portal</h1>
+                <p>Submit, track and manage employee complaints professionally.</p>
+            </div>
+
+            <div class="welcome-text">
+                Welcome to Akshaya Patra
+            </div>
+
+            <span class="badge">Online Helpdesk</span>
+        </header>
+
+        <section class="card">
+            <h2 class="section-title">Raise New Complaint</h2>
+
+            <form id="complaintForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="employeeName">Employee Name</label>
+                        <input type="text" id="employeeName" name="employeeName" placeholder="Enter employee name"
+                            required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="employeeId">Employee ID</label>
+                        <input type="text" id="employeeId" name="employeeId" placeholder="Enter employee ID" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="department">Department</label>
+                        <input type="text" id="department" name="department" placeholder="Enter department" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="category">Complaint Category</label>
+                        <select id="category" name="category" required>
+                            <option value="">Select category</option>
+                            <option value="Electrical">Electrical</option>
+                            <option value="AC">AC</option>
+                            <option value="Computer">Computer</option>
+                            <option value="Food">Food</option>
+                            <option value="Cleaning">Cleaning</option>
+                            <option value="Security">Security</option>
+                            <option value="Maintenance">Maintenance</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group full">
+                        <label for="title">Complaint Title</label>
+                        <input type="text" id="title" name="title" placeholder="Short complaint title" required />
+                    </div>
+
+                    <div class="form-group full">
+                        <label for="description">Complaint Description</label>
+                        <textarea id="description" name="description" rows="5" placeholder="Write complaint details"
+                            required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="location">Location</label>
+                        <input type="text" id="location" name="location" placeholder="Office, floor or room number"
+                            required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="photo">Upload Photo</label>
+                        <input type="file" id="photo" name="photo" accept="image/*" />
+                    </div>
+
+                    <div class="form-group full">
+                        <label>Priority</label>
+
+                        <div class="priority-box">
+                            <input type="radio" id="low" name="priority" value="Low" required />
+                            <label for="low">Low</label>
+
+                            <input type="radio" id="medium" name="priority" value="Medium" />
+                            <label for="medium">Medium</label>
+
+                            <input type="radio" id="high" name="priority" value="High" />
+                            <label for="high">High</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <button type="submit" class="submit-btn">Submit Complaint</button>
+                    <button type="reset" class="reset-btn">Clear</button>
+                </div>
+
+                <div class="success" id="successBox"></div>
+            </form>
+        </section>
+
+        <aside>
+            <div class="card side-card">
+                <h2 class="section-title">Complaint Summary</h2>
+
+                <div class="stat">
+                    <span>Total Complaints</span>
+                    <strong id="totalCount">0</strong>
+                </div>
+
+                <div class="stat">
+                    <span>Pending</span>
+                    <strong id="pendingCount">0</strong>
+                </div>
+
+                <div class="stat">
+                    <span>High Priority</span>
+                    <strong id="highCount">0</strong>
+                </div>
+            </div>
+
+            <div class="card side-card">
+                <h2 class="section-title">Photo Preview</h2>
+
+                <div class="preview">
+                    <img id="photoPreview" alt="Complaint photo preview" />
+                    <span id="previewText">No photo selected</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="section-title">Recent Complaints</h2>
+                <div class="complaint-list" id="complaintList"></div>
+            </div>
+        </aside>
+    </main>
+
+    <script>
+        const form = document.getElementById("complaintForm");
+        const successBox = document.getElementById("successBox");
+        const complaintList = document.getElementById("complaintList");
+        const totalCount = document.getElementById("totalCount");
+        const pendingCount = document.getElementById("pendingCount");
+        const highCount = document.getElementById("highCount");
+        const photoInput = document.getElementById("photo");
+        const photoPreview = document.getElementById("photoPreview");
+        const previewText = document.getElementById("previewText");
+
+        let complaints = [];
+
+        photoInput.addEventListener("change", function () {
+            const file = this.files[0];
+
+            if (!file) {
+                photoPreview.style.display = "none";
+                previewText.style.display = "block";
+                previewText.textContent = "No photo selected";
+                return;
+            }
+
+            const reader = new FileReader();
+
+            reader.onload = function (event) {
+                photoPreview.src = event.target.result;
+                photoPreview.style.display = "block";
+                previewText.style.display = "none";
+            };
+
+            reader.readAsDataURL(file);
+        });
+
+        form.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const data = new FormData(form);
+
+            const complaint = {
+                ticket: "AKP-" + Date.now().toString().slice(-6),
+                name: data.get("employeeName"),
+                employeeId: data.get("employeeId"),
+                department: data.get("department"),
+                category: data.get("category"),
+                title: data.get("title"),
+                description: data.get("description"),
+                location: data.get("location"),
+                priority: data.get("priority"),
+                status: "Pending",
+                date: new Date().toLocaleDateString()
+            };
+
+            complaints.unshift(complaint);
+            updateDashboard();
+
+            successBox.style.display = "block";
+            successBox.textContent = "Complaint submitted successfully. Ticket ID: " + complaint.ticket;
+
+            form.reset();
+            photoPreview.style.display = "none";
+            previewText.style.display = "block";
+            previewText.textContent = "No photo selected";
+        });
+
+        function updateDashboard() {
+            totalCount.textContent = complaints.length;
+            pendingCount.textContent = complaints.filter(item => item.status === "Pending").length;
+            highCount.textContent = complaints.filter(item => item.priority === "High").length;
+
+            complaintList.innerHTML = "";
+
+            complaints.slice(0, 5).forEach(function (item) {
+                const div = document.createElement("div");
+                div.className = "complaint-item";
+
+                div.innerHTML = `
+          <h4>${item.title}</h4>
+          <p><b>Ticket:</b> ${item.ticket}</p>
+          <p><b>Category:</b> ${item.category}</p>
+          <p><b>Location:</b> ${item.location}</p>
+          <span class="tag">${item.priority} Priority</span>
+        `;
+
+                complaintList.appendChild(div);
+            });
+        }
+    </script>
+</body>
+
+</html>
