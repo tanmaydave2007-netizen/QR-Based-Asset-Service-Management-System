@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Track Complaint</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #fbfbf8;
+            color: #111111;
+            padding: 28px 46px;
+        }
+
+        .page {
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #0f7a35;
+            margin-bottom: 34px;
+        }
+
+        .logo {
+            width: 220px;
+            height: auto;
+        }
+
+        .back-btn {
+            background: #eefaf2;
+            color: #0f7a35;
+            border: 1px solid #cdebd7;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(15, 122, 53, 0.1);
+        }
+
+        .title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .title h1 {
+            font-size: 36px;
+            color: #0f7a35;
+            text-transform: uppercase;
+        }
+
+        /* Search Section */
+        .search-container {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 16px;
+            font-size: 18px;
+            border: 2px solid #d7d7d7;
+            border-radius: 8px;
+            outline: none;
+        }
+
+        .search-input:focus {
+            border-color: #0f7a35;
+        }
+
+        .track-btn {
+            background: linear-gradient(135deg, #0f7a35, #064d23);
+            color: white;
+            border: none;
+            padding: 0 35px;
+            font-size: 18px;
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .error-msg {
+            color: #9b0a0a;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: none;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        /* Timeline Box */
+        .tracking-box {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 40px 30px;
+            box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
+            display: none;
+        }
+
+        .status-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+            border-bottom: 1px dashed #e5e7eb;
+        }
+
+        .status-badge {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-weight: 800;
+            font-size: 14px;
+        }
+
+        .badge-pending {
+            background: #fef3c7;
+            color: #d97706;
+        }
+
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            gap: 40px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 29px;
+            top: 10px;
+            bottom: 10px;
+            width: 4px;
+            background: #e5e7eb;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .step-icon {
+            width: 62px;
+            height: 62px;
+            border-radius: 50%;
+            background: #e5e7eb;
+            color: #777777;
+            display: grid;
+            place-items: center;
+        }
+
+        .step-icon svg {
+            width: 26px;
+            height: 26px;
+        }
+
+        .step-info h3 {
+            font-size: 20px;
+            color: #9ca3af;
+        }
+
+        .step-info p {
+            font-size: 15px;
+            color: #9ca3af;
+        }
+
+        /* Classes managed via JavaScript */
+        .step.done .step-icon {
+            background: #0f7a35;
+            color: white;
+        }
+
+        .step.done .step-info h3 {
+            color: #111111;
+            font-weight: 700;
+        }
+
+        .step.done .step-info p {
+            color: #4b5563;
+        }
+
+        .step.current .step-icon {
+            background: #fffbeb;
+            color: #d97706;
+            border: 3px solid #d97706;
+        }
+
+        .step.current .step-info h3 {
+            color: #d97706;
+            font-weight: 800;
+        }
+
+        .step.current .step-info p {
+            color: #111111;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 20px;
+            }
+
+            .topbar {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .search-container {
+                flex-direction: column;
+            }
+
+            .track-btn {
+                padding: 15px;
+                justify-content: center;
+            }
+
+            .timeline::before {
+                left: 23px;
+            }
+
+            .step-icon {
+                width: 50px;
+                height: 50px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="page">
+        <header class="topbar">
+            <img src="logo.png" alt="Akshaya Patra Logo" class="logo" />
+            <a href="index.html" class="back-btn">
+                <i data-lucide="home"></i> Back to Home
+            </a>
+        </header>
+
+        <div class="title">
+            <h1>Track Complaint Status</h1>
+        </div>
+
+        <div class="search-container">
+            <input type="text" id="complaintIdInput" class="search-input" placeholder="Enter Your Complaint ID" />
+            <button class="track-btn" onclick="checkStatus()">
+                <i data-lucide="search"></i> Track
+            </button>
+        </div>
+
+        <p id="errorMsg" class="error-msg"></p>
+
+        <div id="trackingBox" class="tracking-box">
+            <div class="status-header">
+                <h3>Complaint ID: <span id="displayId"></span></h3>
+                <span id="statusBadge" class="status-badge badge-pending">IN PROGRESS</span>
+            </div>
+
+            <div class="timeline">
+                <div id="step1" class="step">
+                    <div class="step-icon"><i data-lucide="file-check-2"></i></div>
+                    <div class="step-info">
+                        <h3>Complaint Registered</h3>
+                        <p>Your complaint has been successfully logged.</p>
+                    </div>
+                </div>
+
+                <div id="step2" class="step">
+                    <div class="step-icon"><i data-lucide="user-check"></i></div>
+                    <div class="step-info">
+                        <h3>Technician Assigned</h3>
+                        <p>A technician has been assigned and is reviewing the Asset AC001.</p>
+                    </div>
+                </div>
+
+                <div id="step3" class="step">
+                    <div class="step-icon"><i data-lucide="wrench"></i></div>
+                    <div class="step-info">
+                        <h3>Under Repair</h3>
+                        <p>The equipment is currently being repaired.</p>
+                    </div>
+                </div>
+
+                <div id="step4" class="step">
+                    <div class="step-icon"><i data-lucide="check-circle"></i></div>
+                    <div class="step-info">
+                        <h3>Resolved</h3>
+                        <p>The issue is fixed, and the equipment is working fine.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Automatically pre-fill the input box if a saved ID exists in localStorage
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedID = localStorage.getItem("myComplaintID");
+            if (savedID) {
+                document.getElementById("complaintIdInput").value = savedID;
+            }
+        });
+
+        function checkStatus() {
+            var inputVal = document.getElementById("complaintIdInput").value.trim().toUpperCase();
+            var trackingBox = document.getElementById("trackingBox");
+            var errorMsg = document.getElementById("errorMsg");
+            var displayId = document.getElementById("displayId");
+
+            var s1 = document.getElementById("step1");
+            var s2 = document.getElementById("step2");
+
+            // Fetch the dynamically generated ID from local storage
+            var savedID = localStorage.getItem("myComplaintID");
+
+            // Reset UI states before evaluation
+            s1.className = "step";
+            s2.className = "step";
+            trackingBox.style.display = "none";
+            errorMsg.style.display = "none";
+
+            // Security & validation check: matches input with device specific storage
+            if (savedID && inputVal === savedID.toUpperCase()) {
+                trackingBox.style.display = "block";
+                displayId.innerText = inputVal;
+
+                // Update timeline status to (Pending/In Progress)
+                s1.className = "step done";
+                s2.className = "step current";
+            } else {
+                errorMsg.innerText = "Access Denied! You can only track complaints raised from this device with a valid ID.";
+                errorMsg.style.display = "block";
+            }
+        }
+    </script>
+</body>
+
+</html>
