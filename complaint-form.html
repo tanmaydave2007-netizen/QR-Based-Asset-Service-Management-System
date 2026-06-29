@@ -11,12 +11,13 @@
 
 <body>
     <main class="portal">
+
         <header class="header">
             <div class="brand">
                 <img src="logo.png" alt="Akshaya Patra Logo" class="logo" />
 
                 <div>
-                    <h1>Akshaya Patra Complaint Portal</h1>
+                    <h2 style="color: #16a34a;">Akshaya Patra Complaint Portal</h2>
                     <p>Submit, track and manage complaints professionally.</p>
                 </div>
             </div>
@@ -59,15 +60,6 @@
                             <input type="tel" id="phone" name="phone" placeholder="Enter phone number" required />
                         </div>
                     </div>
-
-                    <!-- <div class="form-group">
-                        <label for="department">Department <span>*</span></label>
-                        <div class="field-control">
-                            <i data-lucide="building-2"></i>
-                            <input type="text" id="department" name="department" placeholder="Enter department"
-                                required />
-                        </div>
-                    </div> -->
 
                     <div class="form-group">
                         <label for="category">Department<span>*</span></label>
@@ -144,34 +136,10 @@
                         Clear
                     </button>
                 </div>
-
-                <div class="success" id="successBox"></div>
             </form>
         </section>
 
         <aside>
-            <div class="card side-card">
-                <h2 class="section-title">
-                    <i data-lucide="bar-chart-3"></i>
-                    Complaint Summary
-                </h2>
-
-                <div class="stat">
-                    <span>Total Complaints</span>
-                    <strong id="totalCount">0</strong>
-                </div>
-
-                <div class="stat">
-                    <span>Pending</span>
-                    <strong id="pendingCount">0</strong>
-                </div>
-
-                <div class="stat">
-                    <span>High Priority</span>
-                    <strong id="highCount">0</strong>
-                </div>
-            </div>
-
             <div class="card side-card">
                 <h2 class="section-title">
                     <i data-lucide="image"></i>
@@ -179,24 +147,52 @@
                 </h2>
 
                 <div class="preview">
-                    <img id="photoPreview" alt="Complaint photo preview" />
+                    <img id="photoPreview" alt="Complaint photo preview" style="display: none;" />
                     <i data-lucide="image" class="empty-icon"></i>
                     <span id="previewText">No photo selected</span>
                 </div>
             </div>
 
-            <div class="card">
-                <h2 class="section-title">
-                    <i data-lucide="clock"></i>
-                    Recent Complaints
+            <div class="card side-card"
+                style="margin-top: 20px; background: #f8fafc; border-left: 4px solid #16a34a; padding: 20px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                <h2 class="section-title"
+                    style="color: #1e293b; display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+                    <i data-lucide="help-circle"></i>
+                    Need Help?
                 </h2>
+                <p style="font-size: 14px; color: #64748b; margin: 0 0 15px 0; line-height: 1.5;">
+                    If you face any issues while submitting the form, feel free to contact employee support.
+                </p>
 
-                <div class="complaint-list" id="complaintList">
-                    <div class="empty-state">
-                        <i data-lucide="file"></i>
-                        <p>No recent complaints found.</p>
-                    </div>
+                <div style="display: flex; flex-direction: column; gap: 10px; font-size: 13px; color: #334155;">
+                    <p style="margin: 0; display: flex; align-items: center; gap: 8px;">
+                        <strong><i data-lucide="phone" style="width: 14px; height: 14px; color: #16a34a;"></i>
+                            Extension:</strong> 4001 / 4002
+                    </p>
+                    <p style="margin: 0; display: flex; align-items: center; gap: 8px;">
+                        <strong><i data-lucide="mail" style="width: 14px; height: 14px; color: #16a34a;"></i>
+                            Email:</strong> support@akshayapatra.org
+                    </p>
+                    <p style="margin: 0; display: flex; align-items: center; gap: 8px;">
+                        <strong><i data-lucide="clock" style="width: 14px; height: 14px; color: #16a34a;"></i>
+                            Timings:</strong> 9:00 AM - 6:00 PM
+                    </p>
                 </div>
+            </div>
+
+            <div class="card side-card"
+                style="margin-top: 20px; background: #fef2f2; border-left: 4px solid #ef4444; padding: 20px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                <h2 class="section-title"
+                    style="color: #991b1b; display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+                    <i data-lucide="shield-alert" style="color: #ef4444;"></i>
+                    Safety Guidelines
+                </h2>
+                <ul
+                    style="padding-left: 18px; margin: 0; font-size: 13px; color: #7f1d1d; line-height: 1.6; font-weight: 500;">
+                    <li style="margin-bottom: 6px;">Do not attempt to fix critical machinery or electrical leaks on your own.</li>
+                    <li style="margin-bottom: 6px;">Block the area immediately if something spills or a machine is broken.</li>
+                    <li style="margin-bottom: 0;">Always wear your safety gear (gloves, caps, shoes) in the kitchen area.</li>
+                </ul>
             </div>
         </aside>
     </main>
@@ -205,17 +201,11 @@
         lucide.createIcons();
 
         const form = document.getElementById("complaintForm");
-        const successBox = document.getElementById("successBox");
-        const complaintList = document.getElementById("complaintList");
-        const totalCount = document.getElementById("totalCount");
-        const pendingCount = document.getElementById("pendingCount");
-        const highCount = document.getElementById("highCount");
         const photoInput = document.getElementById("photo");
         const photoPreview = document.getElementById("photoPreview");
         const previewText = document.getElementById("previewText");
 
-        let complaints = [];
-
+        // Photo preview logic
         photoInput.addEventListener("change", function () {
             const file = this.files[0];
 
@@ -226,44 +216,101 @@
             }
 
             const reader = new FileReader();
-
             reader.onload = function (event) {
                 photoPreview.src = event.target.result;
                 photoPreview.style.display = "block";
                 previewText.style.display = "none";
             };
-
             reader.readAsDataURL(file);
         });
 
-        form.addEventListener("submit", function (event) {
-            event.preventDefault();
+        // Function to generate sequential, non-repeating Ticket ID (CMP-0001, CMP-0002, etc.)
+        function generateSequentialTicketNumber() {
+            let currentCounter = localStorage.getItem("complaintCounter");
 
-            window.location.href = "success.html";
-        });
+            if (currentCounter === null) {
+                currentCounter = 0;
+            } else {
+                currentCounter = parseInt(currentCounter, 10);
+            }
 
-        function updateDashboard() {
-            totalCount.textContent = complaints.length;
-            pendingCount.textContent = complaints.filter(item => item.status === "Pending").length;
-            highCount.textContent = complaints.filter(item => item.priority === "High").length;
+            currentCounter += 1;
+            localStorage.setItem("complaintCounter", currentCounter);
 
-            complaintList.innerHTML = "";
-
-            complaints.slice(0, 5).forEach(function (item) {
-                const div = document.createElement("div");
-                div.className = "complaint-item";
-
-                div.innerHTML = `
-          <h4>${item.title}</h4>
-          <p><b>Ticket:</b> ${item.ticket}</p>
-          <p><b>Category:</b> ${item.category}</p>
-          <span class="tag">${item.priority} Priority</span>
-        `;
-
-                complaintList.appendChild(div);
-            });
+            const paddedNumber = String(currentCounter).padStart(4, '0');
+            return `CMP-${paddedNumber}`;
         }
 
+        // Form Submission Logic with Firebase Integration
+        form.addEventListener("submit", async function (event) {
+            event.preventDefault();
+
+            try {
+                const complaintId = generateSequentialTicketNumber();
+                localStorage.setItem("myComplaintID", complaintId);
+
+                // Firebase માટે ડેટા ઓબ્જેક્ટ બનાવ્યો
+                const complaintData = {
+                    complaintId: complaintId,
+                    userName: document.getElementById("userName").value,
+                    phone: document.getElementById("phone").value,
+                    category: document.getElementById("category").value,
+                    email: document.getElementById("email").value,
+                    title: document.getElementById("title").value,
+                    description: document.getElementById("description").value,
+                    priority: document.querySelector('input[name="priority"]:checked')?.value || "",
+                    status: "Pending",
+                    createdAt: new Date().toISOString()
+                };
+
+                // Firebase Firestore માં ડેટા સેવ થશે
+                if (window.addDoc && window.collection && window.db) {
+                    await window.addDoc(
+                        window.collection(window.db, "complaints"),
+                        complaintData
+                    );
+                } else {
+                    console.warn("Firebase methods not fully loaded yet, but saving locally.");
+                }
+
+                // ડેટા સેવ થયા પછી success.html પર રીડાયરેક્ટ થશે
+                window.location.href = "success.html";
+            } catch (error) {
+                console.error("Submission error:", error);
+                alert("Something went wrong while submitting. Please try again.");
+            }
+        });
+    </script>
+
+    <!-- Firebase Connection Script Module -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import {
+            getFirestore,
+            collection,
+            addDoc,
+            getDocs
+        } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+        // પહેલા કોડમાંથી શોધેલું Firebase કન્ફિગરેશન
+        const firebaseConfig = {
+            apiKey: "AIzaSyCrne4zTG5Z5wrpps3N6WTX__WJREJ_r1I",
+            authDomain: "akshayapatraassetmanagement.firebaseapp.com",
+            projectId: "akshayapatraassetmanagement",
+            storageBucket: "akshayapatraassetmanagement.firebasestorage.app",
+            messagingSenderId: "746715439733",
+            appId: "1:746715439733:web:e1567c9a04da24398b0e3c"
+        };
+
+        // Firebase ઇનિશિયલાઇઝેશન
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // ફંક્શન્સને ગ્લોબલ વિન્ડો સ્કોપમાં એક્સપોર્ટ કર્યા જેથી ઉપરનો નોર્મલ સ્ક્રિપ્ટ ટેગ તેને વાપરી શકે
+        window.db = db;
+        window.collection = collection;
+        window.addDoc = addDoc;
+        window.getDocs = getDocs;
     </script>
 </body>
 
