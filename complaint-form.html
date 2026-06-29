@@ -249,7 +249,7 @@
                 const complaintId = generateSequentialTicketNumber();
                 localStorage.setItem("myComplaintID", complaintId);
 
-                // Firebase માટે ડેટા ઓબ્જેક્ટ બનાવ્યો
+                // Create data object for Firebase
                 const complaintData = {
                     complaintId: complaintId,
                     userName: document.getElementById("userName").value,
@@ -263,7 +263,7 @@
                     createdAt: new Date().toISOString()
                 };
 
-                // Firebase Firestore માં ડેટા સેવ થશે
+                // Save data to Firebase Firestore
                 if (window.addDoc && window.collection && window.db) {
                     await window.addDoc(
                         window.collection(window.db, "complaints"),
@@ -273,7 +273,7 @@
                     console.warn("Firebase methods not fully loaded yet, but saving locally.");
                 }
 
-                // ડેટા સેવ થયા પછી success.html પર રીડાયરેક્ટ થશે
+                // Redirect to success.html after data is saved successfully
                 window.location.href = "success.html";
             } catch (error) {
                 console.error("Submission error:", error);
@@ -282,7 +282,6 @@
         });
     </script>
 
-    <!-- Firebase Connection Script Module -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
         import {
@@ -292,7 +291,7 @@
             getDocs
         } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-        // પહેલા કોડમાંથી શોધેલું Firebase કન્ફિગરેશન
+        // Firebase configuration retrieved from the first code block
         const firebaseConfig = {
             apiKey: "AIzaSyCrne4zTG5Z5wrpps3N6WTX__WJREJ_r1I",
             authDomain: "akshayapatraassetmanagement.firebaseapp.com",
@@ -302,11 +301,11 @@
             appId: "1:746715439733:web:e1567c9a04da24398b0e3c"
         };
 
-        // Firebase ઇનિશિયલાઇઝેશન
+        // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // ફંક્શન્સને ગ્લોબલ વિન્ડો સ્કોપમાં એક્સપોર્ટ કર્યા જેથી ઉપરનો નોર્મલ સ્ક્રિપ્ટ ટેગ તેને વાપરી શકે
+        // Export functions to global window scope so that the normal script tag above can use them
         window.db = db;
         window.collection = collection;
         window.addDoc = addDoc;
